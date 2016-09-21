@@ -120,5 +120,28 @@ function deviceAPI(app) {
         });
     })
 
+    router.get('/getDeviceByTypeId/:typeId/:zoneId', function(req, res) {
+        var zoneId = req.params.zoneId;
+        var typeId = req.params.typeId;
+        devicePersistent.getDeviceByTypeId(typeId, zoneId, dbconnection, function(err, data) {
+            if (err) {
+                res.jsonp({ "Error": true, "Message": "Error executing MySQL query" });
+            } else {
+                res.jsonp({ "Error": false, "Message": "Success", "data": data });
+            }
+        });
+    })
+
+    router.get('/getTypeDeviceByZoneId/:zoneId', function(req, res) {
+        var zoneId = req.params.zoneId;
+        devicePersistent.getTypeDeviceByZoneId(zoneId, dbconnection, function(err, data) {
+            if (err) {
+                res.jsonp({ "Error": true, "Message": "Error executing MySQL query" });
+            } else {
+                res.jsonp({ "Error": false, "Message": "Success", "data": data });
+            }
+        });
+    })
+
     return router
 }

@@ -96,3 +96,25 @@ exports.getAllStatusDevice = function(connection, done) {
     query = mysql.format(query, table);
     connection.query(query, done);
 }
+
+exports.getDeviceByTypeId = function(typeid,zoneid, connection, done) {
+    var query = "SELECT device.* FROM people_device_iot.device\
+                left join people_device_iot.type\
+                on device.typeid = type.id\
+                where device.typeid = ? and (device.zoneid is null or device.zoneid=?)";
+    var table = [typeid,zoneid];
+    query = mysql.format(query, table);
+    connection.query(query, done);
+}
+
+exports.getTypeDeviceByZoneId = function(zoneid, connection, done) {
+    var query = "SELECT distinct type.* FROM people_device_iot.device\
+                left join people_device_iot.zone\
+                on device.zoneid = zone.id\
+                left join people_device_iot.type\
+                on device.typeid = type.id\
+                where device.zoneid = ? or device.zoneid is null";
+    var table = [zoneid];
+    query = mysql.format(query, table);
+    connection.query(query, done);
+}

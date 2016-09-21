@@ -13,9 +13,11 @@ function zoneAPI(app) {
         var locationid = req.body.locationid;
         var description = req.body.description;
         var zoneimage = req.body.zoneimage;
+        var width = req.body.width;
+        var height = req.body.height;
         var active = req.body.status;
         var datecreated = req.body.datecreated;
-        zonePersistent.addZone(zoneid, locationid, name, description, zoneimage, active, datecreated, dbconnection, function(err, data) {
+        zonePersistent.addZone(zoneid, locationid, name, description, width, height, zoneimage, active, datecreated, dbconnection, function(err, data) {
             res.jsonp(Utilities.apiMessage(err, data));
         })
     })

@@ -18,13 +18,17 @@ exports.getDeviceDeployment = function(zoneId, connection, done) {
     query = mysql.format(query, table);
     connection.query(query, done);
 }
-exports.updateCoordinates = function(deviceid, coordinates,top, left, connection, done) {
-	var query = "UPDATE ?? SET ??=?, ??=?, ??=? where device_deployment.deviceid = ?";
+exports.updateCoordinates = function(deviceid, coordinates, top, left, connection, done) {
+    var query = "UPDATE ?? SET ??=?, ??=?, ??=? where device_deployment.deviceid = ?";
     var table = ["device_deployment", "coordinates", coordinates, "coordinatex", top, "coordinatey", left, deviceid];
     query = mysql.format(query, table);
     connection.query(query, done);
 }
 
-
-
-
+exports.deploy = function(zoneId,device, connection, done) {
+    console.log(device)
+    var query = "UPDATE ?? SET ??=?,??=?,??=? where device.id = ?";
+    var table = ["device", "isdeploy", device.isDeploy, "coordinates", device.col+','+device.row, "zoneid",zoneId, device.deviceid];
+    query = mysql.format(query, table);
+    connection.query(query, done);
+}

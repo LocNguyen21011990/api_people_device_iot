@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var deployzonedevicePersistent = require('../models/deployzonedevice.js');
 var Utilities = require('../utilities.js');
+var uuid = require('node-uuid');
 
 module.exports = deployzonedeviceAPI;
 
@@ -41,6 +42,16 @@ function deployzonedeviceAPI(app) {
             res.jsonp({ "Error": false, "Message": "Success" });
         }
     });
+
+    router.post('/deploy', function(req, res) {
+        var data = req.body;
+        var list_device = req.body.list_device;
+        for (var i = 0; i < list_device.length; i++) {
+            deployzonedevicePersistent.deploy(data.zoneId, list_device[i], dbconnection, function(err, data) {});
+        }
+        res.jsonp({ "Error": false, "Message": "Success" });
+
+    })
 
     return router
 }

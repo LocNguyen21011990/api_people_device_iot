@@ -28,9 +28,9 @@ exports.getZoneById = function(zoneid, connection, done) {
     connection.query(query, done);
 }
 
-exports.addZone = function(zoneid, locationid, name, description, zoneimage, active, datecreated, connection, done) {
-    var query = "INSERT INTO zone(id,locationid,name,description,zoneimage,active,datecreated) value(?,?,?,?,?,?,?)";
-    var table = [zoneid, locationid, name, description, zoneimage, active, datecreated];
+exports.addZone = function(zoneid, locationid, name, description, width, height, zoneimage, active, datecreated, connection, done) {
+    var query = "INSERT INTO zone(id,locationid,name,description,width,height,zoneimage,active,datecreated) value(?,?,?,?,?,?,?,?,?)";
+    var table = [zoneid, locationid, name, description, width, height, zoneimage, active, datecreated];
     query = mysql.format(query, table);
     connection.query(query, done);
 }
